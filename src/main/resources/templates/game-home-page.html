@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CipherGuess - Guess the Word</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        color: #333;
+    }
+    header {
+        background-color: #007BFF;
+        color: white;
+        padding: 20px 0;
+        text-align: center;
+    }
+    header h1 {
+        margin: 0;
+        font-size: 2.5rem;
+    }
+    main {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+        background: white;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+    }
+    main h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #555;
+    }
+    hr {
+        border: none;
+        border-top: 2px solid #007BFF;
+        margin: 20px 0;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    input[type="text"] {
+        padding: 10px;
+        font-size: 1rem;
+        width: 200px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    input[type="submit"] {
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+    .error {
+        color: red;
+        font-size: 0.9rem;
+        margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>CipherGuess</h1>
+</header>
+<main>
+  <h2 th:text="${wordToDisplay}">Show a random word here</h2>
+  <hr />
+  <form action="/game-home" method="GET">
+    <label for="guessedChar">Guess a Character:</label>
+    <input
+            type="text"
+            id="guessedChar"
+            name="guessedChar"
+            maxlength="1"
+            pattern="[a-zA-Z]"
+            title="Enter a single alphabetic character"
+    />
+    <input type="submit" value="Try" />
+    <p class="error" th:if="${errorMessage != null}" th:text="${errorMessage}"></p>
+  </form>
+</main>
+</body>
+</html>
