@@ -29,6 +29,8 @@ public class GameService {
         for(char c : allCharactersOfTheWord){
             if(c == '\u0000'){
                 result.append("_");
+            }else {
+                result.append(c);
             }
             result.append(" ");
         }
@@ -36,13 +38,35 @@ public class GameService {
         return result.toString();
     }
 
-    public void addGuessChar(char guessedChar){
+    public boolean addGuessChar(char guessedChar){
+
+        boolean isGuessCorrect = false;
+
         for(int i=0; i<randomlyChoosenWord.length(); i++){
 
             if(guessedChar == randomlyChoosenWord.charAt(i)){
-
                 allCharactersOfTheWord[i] = guessedChar;
+                isGuessCorrect = true;
             }
         }
+        return isGuessCorrect;
     }
+
+    public void resetGame() {
+        // Reset the game state
+        randomlyChoosenWord = randomWords[rand.nextInt(randomWords.length)];
+        System.out.println("New randomly chosen word: " + randomlyChoosenWord);
+        allCharactersOfTheWord = new char[randomlyChoosenWord.length()];
+    }
+
+
+    public boolean isWordGuessed() {
+        for (char c : allCharactersOfTheWord) {
+            if (c == '\u0000') {
+                return false; // Word is not completely guessed
+            }
+        }
+        return true; // All letters are guessed
+    }
+
 }

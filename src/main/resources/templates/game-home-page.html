@@ -71,6 +71,22 @@
         font-size: 0.9rem;
         margin-top: 10px;
     }
+    .tries-remaining {
+        margin-top: 20px;
+        padding: 10px;
+        background: #fef4c5;
+        color: #856404;
+        border: 1px solid #ffeeba;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        text-align: center;
+        font-style: italic;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .tries-remaining span {
+        color: #d9534f;
+        font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -78,7 +94,7 @@
   <h1>CipherGuess</h1>
 </header>
 <main>
-  <h2 th:text="${wordToDisplay}">Show a random word here</h2>
+  <h2 th:text="${wordToDisplay}"> random word </h2>
   <hr />
   <form action="/game-home" method="GET">
     <label for="guessedChar">Guess a Character:</label>
@@ -92,7 +108,29 @@
     />
     <input type="submit" value="Try" />
     <p class="error" th:if="${errorMessage != null}" th:text="${errorMessage}"></p>
+    <div class="tries-remaining" th:if="${triesRemaining != null}">
+      🕒 <span th:text="${triesRemaining}">X</span> chances left – *Make them count!*
+    </div>
   </form>
+
+  <!-- Success Message -->
+  <div th:if="${successMessage != null}" style="text-align: center; margin-top: 20px;">
+    <h3 th:text="${successMessage}" style="color: #28a745;"></h3>
+    <a th:href="${playAgainLink}" style="text-decoration: none; color: white; background-color: #007BFF; padding: 10px 20px; border-radius: 5px;">
+      Play Again
+    </a>
+  </div>
 </main>
+
+<script th:inline="javascript">
+  const triesRemaining = /*[[${triesRemaining}]]*/;
+  if (triesRemaining === 0) {
+    const restart = confirm("Oh no! You're out of tries. Would you like to restart the game?");
+    if (restart) {
+      window.location.href = "/restart-game";
+    }
+  }
+</script>
+
 </body>
 </html>
