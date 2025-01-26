@@ -8,6 +8,5 @@ public class CipherGuessApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CipherGuessApplication.class, args);
-
 	}
 }

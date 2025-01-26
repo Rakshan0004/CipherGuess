@@ -1,12 +1,13 @@
 package com.rakshan.CipherGuess.controllers;
 import com.rakshan.CipherGuess.Services.GameService;
 import com.rakshan.CipherGuess.utils.GameUtils;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class GameController {
 
     private final GameService gameService;
@@ -16,7 +17,10 @@ public class GameController {
         this.gameService = gameService;
         this.gameUtils = gameUtils;
     }
-
+    @GetMapping("/")
+    public String helloword() {
+        return "Hello World";
+    }
 
     @GetMapping("/game-home")
     public String showGameHomePage(@RequestParam(value = "guessedChar", required = false) String guessChar, Model model) {
